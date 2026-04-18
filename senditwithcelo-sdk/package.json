@@ -1,0 +1,47 @@
+{
+  "name": "senditwithcelo-sdk",
+  "version": "0.1.0",
+  "description": "Minimal SDK for SendItWithCelo — send tips and read balances on the Celo blockchain.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "keywords": [
+    "celo",
+    "sendit",
+    "senditwithcelo",
+    "celotip",
+    "tip",
+    "blockchain",
+    "web3",
+    "sdk",
+    "viem",
+    "minipay",
+    "erc20"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "viem": "^2.21.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.0"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "author": "senditwithcelo",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uniquebeing-base-eth/senditwithcelo.git"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

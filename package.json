@@ -20,7 +20,7 @@
   "scripts": {
     "build": "tsc",
     "build:dev": "tsc",
-    "dev": "node -e \"console.log('senditwithcelo-sdk is a library — run npm run build to compile.'); setInterval(()=>{},1<<30)\"",
+    "dev": "sh -c 'echo \"senditwithcelo-sdk is a library — run npm run build to compile.\"; tail -f /dev/null'",
     "prepublishOnly": "npm run build"
   },
   "dependencies": {

@@ -19,6 +19,8 @@
   ],
   "scripts": {
     "build": "tsc",
+    "build:dev": "tsc",
+    "dev": "sh -c 'echo \"senditwithcelo-sdk is a library — run npm run build to compile.\"; tail -f /dev/null'",
     "prepublishOnly": "npm run build"
   },
   "dependencies": {

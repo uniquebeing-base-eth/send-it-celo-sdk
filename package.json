@@ -38,8 +38,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/uniquebeing-base-eth/senditwithcelo.git"
+    "url": "git+https://github.com/uniquebeing-base-eth/send-it-celo-sdk.git"
   },
+  "bugs": {
+    "url": "https://github.com/uniquebeing-base-eth/send-it-celo-sdk/issues"
+  },
+  "homepage": "https://github.com/uniquebeing-base-eth/send-it-celo-sdk#readme",
   "engines": {
     "node": ">=18.0.0"
   },

@@ -9,7 +9,7 @@ import type { SendTipParams, SendTipResult } from "./types";
  *   1. Parse the human-readable amount with the token's decimals.
  *   2. Check the current ERC20 allowance for the CeloTip contract.
  *   3. If the allowance is insufficient, submit an `approve` tx via the wallet.
- *   4. POST the tip payload to the relayer URL — the relayer submits
+ *   4. POST the tip payload to the relayer URL — the relayer submits,
  *      `sendTip(from, to, tokenAddress, amount, interactionType, castHash)`
  *      on chain and returns the resulting tx hash.
  */

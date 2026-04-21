@@ -1,4 +1,4 @@
-// Mirrors the on-chain configuration used by the senditwithcelo app.
+// Mirrors all the on-chain configuration used by the senditwithcelo app.
 // Source of truth: senditwithcelo/src/lib/contract.ts
 
 export const CELOTIP_ADDRESS =

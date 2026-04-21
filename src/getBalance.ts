@@ -3,8 +3,9 @@ import { ERC20_ABI } from "./contract";
 import type { GetBalanceParams, GetBalanceResult } from "./types";
 
 /**
- * Read an ERC20 token balance for an address on Celo.
+ * Read an ERC20 token balance for an address on Celo .
  * Wraps the same `balanceOf` call used by the senditwithcelo app.
+ * checks balance before sending tips.
  */
 export async function getBalance(
   params: GetBalanceParams

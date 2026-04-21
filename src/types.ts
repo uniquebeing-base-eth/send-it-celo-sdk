@@ -3,7 +3,7 @@ import type { PublicClient, WalletClient } from "viem";
 export type Address = `0x${string}`;
 
 export interface SendTipParams {
-  /** Sender wallet address (must match walletClient account). */
+  /** Sender wallet address (must always match walletClient account). */
   from: Address;
   /** Recipient wallet address. */
   to: Address;

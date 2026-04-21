@@ -1,6 +1,6 @@
 {
   "name": "senditwithcelo-sdk",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Minimal SDK for SendItWithCelo — send tips and read balances on the Celo blockchain.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

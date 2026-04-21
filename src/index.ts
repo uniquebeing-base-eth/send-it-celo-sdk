@@ -2,6 +2,7 @@
 // Exports only the core functions actually used by the app:
 //   - sendTip
 //   - getBalance
+//   - check balance 
 //
 // Note: the current senditwithcelo app does not implement a `claimReward`
 // flow, so it is intentionally omitted from this SDK.

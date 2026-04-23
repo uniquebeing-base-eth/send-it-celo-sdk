@@ -1,0 +1,106 @@
+name: Verify published package
+
+on:
+  release:
+    types: [created]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to verify (e.g. 0.1.1). Leave empty for latest."
+        required: false
+        default: ""
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    needs: []
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org/
+
+      - name: Wait for package to be available on npm
+        run: |
+          VERSION="${{ github.event.inputs.version }}"
+          if [ -z "$VERSION" ] && [ "${{ github.event_name }}" = "release" ]; then
+            VERSION="${{ github.event.release.tag_name }}"
+            VERSION="${VERSION#v}"
+          fi
+          echo "Verifying version: ${VERSION:-latest}"
+          for i in $(seq 1 30); do
+            if [ -z "$VERSION" ]; then
+              npm view senditwithcelo-sdk version && break
+            else
+              npm view "senditwithcelo-sdk@$VERSION" version && break
+            fi
+            echo "Not yet available, retrying in 10s..."
+            sleep 10
+          done
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Set up clean install directory
+        run: |
+          mkdir -p /tmp/verify && cd /tmp/verify
+          npm init -y >/dev/null
+          if [ -n "$VERSION" ]; then
+            npm install "senditwithcelo-sdk@$VERSION" viem
+          else
+            npm install senditwithcelo-sdk viem
+          fi
+
+      - name: Verify runtime imports
+        run: |
+          cd /tmp/verify
+          cat > test.mjs <<'EOF'
+          import * as sdk from "senditwithcelo-sdk";
+          const required = ["sendTip", "getBalance", "CELOTIP_ADDRESS", "CELO_TOKENS", "CELO_CHAIN_ID"];
+          const missing = required.filter((k) => !(k in sdk));
+          if (missing.length) {
+            console.error("Missing exports:", missing);
+            process.exit(1);
+          }
+          if (typeof sdk.sendTip !== "function") throw new Error("sendTip not a function");
+          if (typeof sdk.getBalance !== "function") throw new Error("getBalance not a function");
+          if (sdk.CELO_CHAIN_ID !== 42220) throw new Error("Unexpected CELO_CHAIN_ID");
+          if (!Array.isArray(sdk.CELO_TOKENS) || sdk.CELO_TOKENS.length === 0) throw new Error("CELO_TOKENS empty");
+          console.log("✓ Runtime imports OK");
+          EOF
+          node test.mjs
+
+      - name: Verify TypeScript types
+        run: |
+          cd /tmp/verify
+          npm install --save-dev typescript@5
+          cat > tsconfig.json <<'EOF'
+          {
+            "compilerOptions": {
+              "target": "ES2020",
+              "module": "ESNext",
+              "moduleResolution": "Bundler",
+              "strict": true,
+              "esModuleInterop": true,
+              "skipLibCheck": true,
+              "noEmit": true
+            },
+            "include": ["check.ts"]
+          }
+          EOF
+          cat > check.ts <<'EOF'
+          import {
+            sendTip,
+            getBalance,
+            CELOTIP_ADDRESS,
+            CELO_TOKENS,
+            CELO_CHAIN_ID,
+          } from "senditwithcelo-sdk";
+
+          const _sendTip: typeof sendTip = sendTip;
+          const _getBalance: typeof getBalance = getBalance;
+          const _addr: string = CELOTIP_ADDRESS;
+          const _chain: number = CELO_CHAIN_ID;
+          const _tokens = CELO_TOKENS;
+          void _sendTip; void _getBalance; void _addr; void _chain; void _tokens;
+          EOF
+          npx tsc -p tsconfig.json
+          echo "✓ Type check OK"

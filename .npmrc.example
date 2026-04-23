@@ -1,0 +1,6 @@
+# Example .npmrc for consumers installing the SDK from GitHub Packages.
+# Copy this file to `.npmrc` in your project root and set GITHUB_TOKEN
+# (a personal access token with the `read:packages` scope) in your environment.
+
+@uniquebeing-base-eth:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}

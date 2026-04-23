@@ -5,8 +5,29 @@ Wraps the core on-chain interactions used by the app on the Celo blockchain.
 
 ## Install
 
+### From npm (public registry)
+
 ```bash
 npm install senditwithcelo-sdk viem
+```
+
+### From GitHub Packages
+
+The SDK is also published to GitHub Packages as
+`@uniquebeing-base-eth/senditwithcelo-sdk`. To install it, create an `.npmrc`
+in your project root:
+
+```
+@uniquebeing-base-eth:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+```
+
+Then export a GitHub personal access token with `read:packages` scope and
+install:
+
+```bash
+export GITHUB_TOKEN=ghp_xxx
+npm install @uniquebeing-base-eth/senditwithcelo-sdk viem
 ```
 
 `viem` is a peer-style runtime dependency — the SDK accepts your existing

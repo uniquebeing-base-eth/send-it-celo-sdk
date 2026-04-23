@@ -1,6 +1,5 @@
-
 {
-  "name": "senditwithcelo-sdk",
+  "name": "@uniquebeing-base-eth/senditwithcelo-sdk",
   "version": "0.1.1",
   "description": "Minimal SDK for SendItWithCelo — send tips and read balances on the Celo blockchain.",
   "main": "dist/index.js",
@@ -49,6 +48,7 @@
     "node": ">=18.0.0"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://npm.pkg.github.com"
   }
 }

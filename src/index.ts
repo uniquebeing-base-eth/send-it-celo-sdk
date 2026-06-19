@@ -1,3 +1,4 @@
+
 // senditwithcelo-sdk — minimal SDK for the senditwithcelo app.
 // Exports only the core functions actually used by the app:
 //   - sendTip
